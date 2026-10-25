@@ -426,3 +426,17 @@ playAgainButton.addEventListener("click", () => {
 
 // Start at the intro screen
 showScreen($("intro-screen"));
+
+
+
+const helpButton = document.getElementById("help-button");
+const helpPanel = document.getElementById("help-panel");
+const closeHelp = document.getElementById("close-help");
+
+helpButton.addEventListener("click", () => {
+    helpPanel.classList.toggle("hidden");
+});
+
+closeHelp.addEventListener("click", () => {
+    helpPanel.classList.add("hidden");
+});

@@ -12,6 +12,33 @@
 <body>
     <main class="game">
 
+        <button id="help-button" type="button" aria-label="How to play" title="How to play">
+            ?
+        </button>
+
+        <section id="help-panel" class="help-panel hidden" role="dialog" aria-labelledby="help-title">
+            <button id="close-help" class="close-help" type="button" aria-label="Close instructions">
+                &times;
+            </button>
+
+            <h2 id="help-title">📜 How to Play</h2>
+
+            <p>Ahoy, sailor! Follow these steps to escape the Flying Dutchman.</p>
+
+            <ol>
+                <li><strong>Challenge 1 — The Captain's Quiz:</strong> Answer 5 general knowledge questions. You need at
+                    least 3 correct answers to pass.</li>
+                <li><strong>Challenge 2 — The Secret Code:</strong> Solve the three clues to discover the secret code:
+                    531.</li>
+                <li><strong>Challenge 3 — The Hidden Emoji:</strong> Enter your name and find the hidden skull before
+                    the 60-second timer ends.</li>
+                <li><strong>Escape!</strong> Complete all three challenges to break the curse and win the game.</li>
+            </ol>
+
+            <p>Good luck, sailor! ☠️</p>
+        </section>
+
+
         <button id="sound-button" type="button">🔊 Sound On</button>
 
         <!-- START SCREEN -->

@@ -585,3 +585,82 @@ label {
         font-size: 1.7rem;
     }
 }
+
+
+/* Help button */
+#help-button {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+
+    border: 2px solid #d6b56d;
+    border-radius: 50%;
+    background: #101c24;
+    color: #e7c77e;
+
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 20;
+}
+
+#help-button:hover {
+    background: #d6b56d;
+    color: #101c24;
+}
+
+/* Instructions popup */
+.help-panel {
+    position: absolute;
+    top: 65px;
+    right: 18px;
+    z-index: 30;
+
+    width: min(390px, calc(100% - 36px));
+    max-height: 75vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 24px;
+
+    background: #101c24;
+    color: #f5e9cc;
+    border: 1px solid #d6b56d;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+
+    text-align: left;
+    line-height: 1.6;
+}
+
+.help-panel h2 {
+    color: #e7c77e;
+    margin-top: 0;
+    padding-right: 20px;
+}
+
+.help-panel li {
+    margin-bottom: 12px;
+}
+
+.help-panel strong {
+    color: #e7c77e;
+}
+
+.close-help {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    padding: 4px 8px;
+    background: transparent;
+    border: none;
+    color: #f5e9cc;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.game {
+    position: relative;
+}
