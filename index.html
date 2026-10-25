@@ -11,55 +11,116 @@
 
 <body>
     <main class="game">
-        <p class="eyebrow">A NEW ADVENTURE</p>
-        <h1>Escape the Flying Dutchman</h1>
-        <p id="story">
-            You are trapped on a ghost ship.
-            Solve three challenges to break the curse!
-        </p>
 
-        <div id="game-area">
-            <h2 id="question">Ready to begin?</h2>
+        <button id="sound-button" type="button">🔊 Sound On</button>
+
+        <!-- START SCREEN -->
+        <section id="intro-screen">
+            <p class="eyebrow">A NEW ADVENTURE</p>
+            <h1>Escape the Flying Dutchman</h1>
+            <p id="story">
+                You are trapped on a ghost ship.
+                Solve three challenges to break the curse!
+            </p>
+            <button id="start-button" type="button">
+                Start the Adventure
+            </button>
+        </section>
+
+        <!-- CHALLENGE SELECTION -->
+        <section id="map-screen" class="hidden">
+            <p class="eyebrow">YOUR DESTINY AWAITS</p>
+            <h2>Choose Your Challenge</h2>
+            <p>Complete each challenge to unlock the next.</p>
+
+            <div class="challenge-grid">
+                <button class="challenge-card" id="mission-1">
+                    <span class="mission-icon">📜</span>
+                    <span>Challenge 1</span>
+                    <strong>The Captain's Quiz</strong>
+                    <span class="mission-status">🔓 Unlocked</span>
+                </button>
+
+                <button class="challenge-card locked" id="mission-2" disabled>
+                    <span class="mission-icon">🔐</span>
+                    <span>Challenge 2</span>
+                    <strong>The Secret Code</strong>
+                    <span class="mission-status">Locked</span>
+                </button>
+
+                <button class="challenge-card locked" id="mission-3" disabled>
+                    <span class="mission-icon">💀</span>
+                    <span>Challenge 3</span>
+                    <strong>The Hidden Emoji</strong>
+                    <span class="mission-status">Locked</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- CHALLENGE 1: QUIZ -->
+        <section id="quiz-screen" class="hidden">
+            <p class="eyebrow">CHALLENGE 1</p>
+            <h2>The Captain's Quiz</h2>
+            <p id="quiz-progress">Question 1 of 5</p>
+            <h3 id="question"></h3>
             <div id="answers"></div>
             <p id="feedback" aria-live="polite"></p>
-        </div>
+            <p id="quiz-score"></p>
+            <button id="quiz-next" class="hidden" type="button">
+                Next Question
+            </button>
+            <button class="back-button" type="button">Back to Challenges</button>
+        </section>
 
-        <button id="sound-button" type="button"> 🔊 Sound On</button>
-        <button id="start-button">Start Adventure</button>
-
-
-        <button id="second-game-button" class="hidden" type="button">
-            🔐 Play Captain's Code
-        </button>
-
-        <section id="code-game" class="hidden">
-            <p class="eyebrow">THE CAPTAIN'S SECRET</p>
+        <!-- CHALLENGE 2: SECRET CODE -->
+        <section id="code-screen" class="hidden">
+            <p class="eyebrow">CHALLENGE 2</p>
             <h2>Unlock the Treasure Chest</h2>
 
-            <p id="code-clue">
-                The captain's code has three digits.
-                The first digit is 3, the second is double the first,
-                and the last digit is the sum of the first two.
+            <p>
+                First digit: the number of fingers on one hand.<br>
+                Second digit: the number of letters in SEA.<br>
+                Third digit: the smallest number on a traditional clock face.
             </p>
 
-            <label for="secret-code">Enter the 3-digit code:</label>
+            <label for="secret-code">Enter the three-digit code:</label>
             <input id="secret-code" type="text" inputmode="numeric" maxlength="3" placeholder="???" autocomplete="off">
 
             <button id="check-code-button" type="button">
                 Unlock Chest
             </button>
-
             <p id="code-feedback" aria-live="polite"></p>
+            <button class="back-button" type="button">Back to Challenges</button>
+        </section>
 
-            <div id="treasure-reveal" class="hidden">
-                <div id="treasure-chest" aria-label="Opened treasure chest">
-                    🧰
-                </div>
-                <h2>🏆 THE CURSE IS BROKEN!</h2>
-                <p>You found the captain's lost treasure!</p>
-                <p class="treasure-glow">✨ Gold, jewels, and freedom await! ✨</p>
+        <!-- CHALLENGE 3: HIDDEN EMOJI -->
+        <section id="emoji-screen" class="hidden">
+            <p class="eyebrow">FINAL CHALLENGE</p>
+            <h2>Find the Hidden Skull!</h2>
+
+            <label for="player-name">Your name, sailor:</label>
+            <input id="player-name" type="text" maxlength="30" placeholder="Enter your name" autocomplete="given-name">
+
+            <p>Find the hidden emoji before time runs out!</p>
+            <h3>Time left: <span id="timer">60</span> seconds</h3>
+
+            <div class="puzzle">
+                <img src="img/ghost-ship.png" alt="A mysterious pirate ship">
+                <button id="hidden-emoji" type="button" aria-label="Find the hidden skull">💀</button>
             </div>
 
+            <p id="emoji-feedback" aria-live="polite"></p>
+            <button class="back-button" type="button">Back to Challenges</button>
+        </section>
+
+        <!-- VICTORY SCREEN -->
+        <section id="victory-screen" class="hidden">
+            <p class="eyebrow">FREEDOM AT LAST</p>
+            <h1>🏆 Congratulations, Sailor!</h1>
+            <p id="victory-message"></p>
+            <div id="treasure-chest">🧰</div>
+            <p class="treasure-glow">✨ You escaped the Flying Dutchman! ✨</p>
+            <button id="play-again-button" type="button">Play Again</button>
         </section>
 
     </main>
