@@ -1,8 +1,4 @@
 
-/* ========================================
-   ESCAPE THE FLYING DUTCHMAN
-======================================== */
-
 const $ = (id) => document.getElementById(id);
 
 // Screens
@@ -39,7 +35,8 @@ let quizAnswered = false;
 let timerInterval = null;
 let timeLeft = 60;
 let soundOn = true;
-
+let questionTimeLeft = 30;
+let questionTimerInterval = null;
 // Sounds — use your existing sound files
 const sounds = {
     ocean: new Audio("sounds/ocean.mp3"),
@@ -104,6 +101,54 @@ const questions = [
     }
 ];
 
+
+function stopQuestionTimer() {
+    if (questionTimerInterval !== null) {
+        clearInterval(questionTimerInterval);
+        questionTimerInterval = null;
+    }
+}
+
+function startQuestionTimer() {
+    stopQuestionTimer();
+
+    questionTimeLeft = 30;
+    $("question-timer").textContent = questionTimeLeft;
+
+    questionTimerInterval = setInterval(() => {
+        questionTimeLeft--;
+
+        $("question-timer").textContent = questionTimeLeft;
+
+        if (questionTimeLeft <= 0) {
+            stopQuestionTimer();
+
+            if (!quizAnswered) {
+                quizAnswered = true;
+
+                $("feedback").textContent = "Time's up! ⏰";
+
+                const answerButtons = $("answers").querySelectorAll("button");
+
+                answerButtons.forEach(button => {
+                    button.disabled = true;
+                });
+
+                playSound("wrong");
+
+                $("quiz-score").textContent = `Score: ${score} / 5`;
+
+                quizNext.textContent =
+                    quizIndex === questions.length - 1
+                        ? "See My Result"
+                        : "Next Question";
+
+                quizNext.classList.remove("hidden");
+            }
+        }
+    }, 1000);
+}
+
 function startQuiz() {
     quizIndex = 0;
     score = 0;
@@ -138,6 +183,8 @@ function showQuestion() {
         button.type = "button";
         button.textContent = answer;
 
+        startQuestionTimer();
+
         button.addEventListener("click", () => {
             checkAnswer(index, button);
         });
@@ -150,6 +197,7 @@ function checkAnswer(selectedIndex, selectedButton) {
     if (quizAnswered) return;
 
     quizAnswered = true;
+    stopQuestionTimer();
 
     const current = questions[quizIndex];
     const answerButtons = $("answers").querySelectorAll("button");
@@ -194,7 +242,9 @@ quizNext.addEventListener("click", () => {
     }
 });
 
+
 function finishQuiz() {
+    stopQuestionTimer();
     $("answers").replaceChildren();
     quizNext.classList.add("hidden");
 
@@ -210,14 +260,12 @@ function finishQuiz() {
         mission2.querySelector(".mission-status").textContent =
             "🔓 Unlocked";
 
-        const continueButton = document.createElement("button");
-        continueButton.textContent = "Return to Challenges";
-        continueButton.addEventListener("click", () => {
+        // Automatically return to the challenges map
+        setTimeout(() => {
             showScreen($("map-screen"));
             playSound("click");
-        });
+        }, 2500);
 
-        $("answers").appendChild(continueButton);
     } else {
         $("feedback").textContent =
             "Not enough points yet! Try the quiz again from the beginning.";
@@ -231,6 +279,7 @@ function finishQuiz() {
 
     $("quiz-score").textContent = `Final score: ${score} / 5`;
 }
+
 
 // ========================================
 // CHALLENGE 2: SECRET CODE
@@ -405,6 +454,7 @@ soundButton.addEventListener("click", () => {
 
 playAgainButton.addEventListener("click", () => {
     stopTimer();
+    stopQuestionTimer();
 
     // Reset challenge unlocks
     mission2.disabled = true;
@@ -439,4 +489,27 @@ helpButton.addEventListener("click", () => {
 
 closeHelp.addEventListener("click", () => {
     helpPanel.classList.add("hidden");
+});
+
+
+$("play-again").addEventListener("click", () => {
+    stopQuestionTimer();
+
+    // Lock Challenges 2 and 3 again
+    mission2.disabled = true;
+    mission2.classList.add("locked");
+    mission2.querySelector(".mission-status").textContent = "🔒 Locked";
+
+    mission3.disabled = true;
+    mission3.classList.add("locked");
+    mission3.querySelector(".mission-status").textContent = "🔒 Locked";
+
+    // Start a fresh quiz
+    playSound("click");
+    startQuiz();
+});
+
+$("go-home").addEventListener("click", () => {
+    playSound("click");
+    showScreen($("home-screen"));
 });
